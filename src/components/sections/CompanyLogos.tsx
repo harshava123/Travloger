@@ -20,7 +20,7 @@ import mercedesLogo from '../../../public/companies/mercedes.svg'
 
 // Company logos data - moved outside the component
 const companies = [
-    { name: 'Microsoft', logo: microsoftLogo, width: 180, height: 80 },
+    { name: 'Microsoftt', logo: microsoftLogo, width: 180, height: 80 },
     { name: 'Amazon', logo: amazonLogo, width: 180, height: 80 },
     { name: 'Cognizant', logo: cognizantLogo, width: 200, height: 80 },
     { name: 'J.P. Morgan', logo: jpMorganLogo, width: 220, height: 80 },
