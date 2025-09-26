@@ -28,6 +28,16 @@ interface HighlightImage {
   alt: string;
 }
 
+interface TripHighlightsContent {
+  heading?: string;
+  subheading?: string;
+  highlights?: HighlightImage[];
+}
+
+interface KeralaTripHighlightsProps {
+  content?: TripHighlightsContent;
+}
+
 const keralaHighlights: HighlightImage[] = [
   { 
     id: '1', 
@@ -61,13 +71,26 @@ const keralaHighlights: HighlightImage[] = [
   },
 ];
 
-const KeralaTripHighlights = () => {
+const KeralaTripHighlights = ({ content }: KeralaTripHighlightsProps) => {
   const swiperRef = useRef<SwiperType>(null);
   const { setRef } = useIntersectionObserver({
     threshold: 0.2,
     triggerOnce: true
   });
   const [isMobile, setIsMobile] = useState(false);
+
+  // Merge CMS content with defaults
+  const highlightsData = React.useMemo(() => {
+    if (!content?.highlights || content.highlights.length === 0) {
+      return keralaHighlights;
+    }
+    
+    // Smart merging: combine default items with CMS items
+    return keralaHighlights.map(defaultItem => {
+      const cmsItem = content.highlights?.find((item: HighlightImage) => item.id === defaultItem.id);
+      return cmsItem || defaultItem;
+    });
+  }, [content?.highlights]);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -88,11 +111,15 @@ const KeralaTripHighlights = () => {
               "font-bold text-gray-900 mb-4 font-heading",
               mobileFirst.text('h1')
             )}>
-              Discover Kerala&apos;s{' '}
-              <span className="text-[#134956]">Hidden Gems</span>
+              {content?.heading || (
+                <>
+                  Discover Kerala&apos;s{' '}
+                  <span className="text-[#134956]">Hidden Gems</span>
+                </>
+              )}
             </h2>
             <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">
-              Experience the most breathtaking destinations that make Kerala truly magical
+              {content?.subheading || "Experience the most breathtaking destinations that make Kerala truly magical"}
             </p>
           </div>
         </LazyLoad>
@@ -156,7 +183,7 @@ const KeralaTripHighlights = () => {
                 }
               }}
             >
-              {keralaHighlights.map((slide, index) => (
+              {highlightsData.map((slide, index) => (
                 <SwiperSlide
                   key={slide.id}
                   className="!w-[280px] !h-[380px] sm:!w-[320px] sm:!h-[420px] md:!w-[360px] md:!h-[460px] lg:!w-[400px] lg:!h-[500px]"

@@ -48,16 +48,16 @@ export default async function KeralaPage() {
   return (
     <>
       <ScrollProgress />
-      <Header content={content?.header} />
-      <KeralaHero content={content?.hero} />
-      <KeralaTripOptions content={content?.tripOptions} />
-      <UnfilteredReviews content={content?.reviews} />
+      <Header content={content?.header || undefined} />
+      <KeralaHero content={content?.hero || undefined} />
+      <KeralaTripOptions content={content?.tripOptions || undefined} />
+      <UnfilteredReviews content={content?.reviews || undefined} />
       <Accommodation />
-      <USP content={content?.usp} />
-      <KeralaTripHighlights />
-      <GroupCTA content={content?.groupCta} />
-      <CompanyLogos content={content?.brands} />
-      <KeralaFAQ content={content?.faq} />
+      <USP content={content?.usp || undefined} />
+      <KeralaTripHighlights content={content?.tripHighlights || undefined} />
+      <GroupCTA content={content?.groupCta || undefined} />
+      <CompanyLogos content={content?.brands || undefined} />
+      <KeralaFAQ content={content?.faq || undefined} />
       <Footer />
       <FloatingActionBar />
     </> 

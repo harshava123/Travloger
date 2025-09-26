@@ -56,7 +56,7 @@ export default async function KashmirPage() {
       <UnfilteredReviews content={content?.reviews || undefined} />
       <Accommodation />
       <USP content={content?.usp || undefined} />
-      <TripHighlights />
+      <TripHighlights content={content?.tripHighlights || undefined} />
       <GroupCTA content={content?.groupCta || undefined} />
       <CompanyLogos content={content?.brands || undefined} />
       <FAQ content={content?.faq || undefined} />
