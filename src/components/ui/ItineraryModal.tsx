@@ -217,9 +217,9 @@ const ItineraryModal: React.FC<ItineraryModalProps> = ({ isOpen, onClose, trip }
                           {/* Right side - Content */}
                           <div className="flex-1">
                             <p className="text-gray-900 font-body leading-relaxed text-sm font-semibold">{day.title}</p>
-                            {day.description && (
-                              <p className="text-gray-600 font-body leading-relaxed text-xs mt-1">{day.description}</p>
-                            )}
+                            {'description' in day && day.description ? (
+                              <p className="text-gray-600 font-body leading-relaxed text-xs mt-1">{(day as { description: string }).description}</p>
+                            ) : null}
                           </div>
                         </div>
                       ))}
