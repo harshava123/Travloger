@@ -125,7 +125,7 @@ const CompanyLogos = React.memo(({ content }: { content?: BrandsContent }) => {
                                             >
                                                 <div className="w-24 h-12 md:w-28 md:h-14 lg:w-32 lg:h-16 flex items-center justify-center">
                                                     <Image 
-                                                        src={company.logoUrl || company.logo} 
+                                                        src={'logoUrl' in company ? company.logoUrl : company.logo} 
                                                         alt={`${company.name} logo`} 
                                                         width={company.width || 120} 
                                                         height={company.height || 60} 
