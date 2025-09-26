@@ -7,6 +7,15 @@ import { cn } from '@/lib/utils';
 import { mobileFirst } from '@/lib/mobile-first-patterns';
 import './FAQ.css';
 
+interface FAQContent {
+  heading?: string;
+  items?: FAQType[];
+}
+
+interface FAQProps {
+  content?: FAQContent;
+}
+
 const faqData: FAQType[] = [
   {
     id: '1',
@@ -35,9 +44,22 @@ const faqData: FAQType[] = [
   }
 ];
 
-const FAQ = () => {
+const FAQ = ({ content }: FAQProps) => {
   const [openFAQ, setOpenFAQ] = useState<string | null>(null); // Default first FAQ open
   const prefersReducedMotion = useReducedMotion();
+
+  // Merge CMS content with defaults
+  const faqDataToUse = React.useMemo(() => {
+    if (!content?.items || content.items.length === 0) {
+      return faqData;
+    }
+    
+    // Smart merging: combine default items with CMS items
+    return faqData.map(defaultItem => {
+      const cmsItem = content.items?.find((item: FAQType) => item.id === defaultItem.id);
+      return cmsItem || defaultItem;
+    });
+  }, [content?.items]);
 
   // Intersection observers for animations
   const { setRef: setHeaderRef, isInView: isHeaderVisible } = useIntersectionObserver({
@@ -77,7 +99,11 @@ const FAQ = () => {
             "font-bold text-gray-900 mb-4 font-heading",
             mobileFirst.text('h1')
           )}>
-            Before You Pack, <span className='text-[#134956]'>Read This FAQs.</span>
+            {content?.heading || (
+              <>
+                Before You Pack, <span className='text-[#134956]'>Read This FAQs.</span>
+              </>
+            )}
           </h2>
         </div>
 
@@ -86,7 +112,7 @@ const FAQ = () => {
           ref={setFaqListRef}
           className="max-w-4xl mx-auto space-y-4 lg:space-y-6"
         >
-          {faqData.map((faq, index) => {
+          {faqDataToUse.map((faq, index) => {
             const isOpen = openFAQ === faq.id;
             return (
               <div
