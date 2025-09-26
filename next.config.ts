@@ -1,15 +1,42 @@
+// Next.js configuration
+// Allows loading remote images from CMS-provided URLs
 const nextConfig = {
-  eslint: {
-    // Allow builds to pass even if there are ESLint errors
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    // Allow production builds to complete even if there are type errors
-    ignoreBuildErrors: true,
+  images: {
+    // Allow all external image URLs (disables Next/Image optimization)
+    unoptimized: true,
+    // Domains list (simple allowlist)
+    domains: [
+      'media.istockphoto.com',
+      'images.unsplash.com',
+      'cdn.pixabay.com',
+      's7ap1.scene7.com',
+    ],
+    // Explicit remote patterns (with wildcard path)
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'media.istockphoto.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.pixabay.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 's7ap1.scene7.com',
+        pathname: '/**',
+      },
+    ],
   },
 };
 
 export default nextConfig;
-
 
 
