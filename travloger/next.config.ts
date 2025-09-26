@@ -2,20 +2,30 @@
 // Allows loading remote images from CMS-provided URLs
 const nextConfig = {
   images: {
-    // Either use domains or remotePatterns. remotePatterns is more explicit.
+    // Allow all external image URLs (disables Next/Image optimization)
+    unoptimized: true,
+    // Domains list (simple allowlist)
+    domains: [
+      'media.istockphoto.com',
+      'images.unsplash.com',
+      'cdn.pixabay.com',
+    ],
+    // Explicit remote patterns (with wildcard path)
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'media.istockphoto.com',
+        pathname: '/**',
       },
-      // Add other hosts your CMS may return (optional, safe defaults)
       {
         protocol: 'https',
         hostname: 'images.unsplash.com',
+        pathname: '/**',
       },
       {
         protocol: 'https',
         hostname: 'cdn.pixabay.com',
+        pathname: '/**',
       },
     ],
   },
