@@ -78,10 +78,10 @@ const CompanyLogos = React.memo(({ content }: { content?: BrandsContent }) => {
                               "font-bold text-gray-900 mb-4 font-heading",
                               mobileFirst.text('h1')
                             )}>
-                              {heading.includes('Brands Who\'ve Worked') ? (
+                              {heading.includes('Brands Who&apos;ve Worked') ? (
                                 <span dangerouslySetInnerHTML={{ __html: heading }} />
                               ) : (
-                                <>Brands Who've Worked <span className='text-[#134956]'>{heading}</span></>
+                                <>Brands Who&apos;ve Worked <span className='text-[#134956]'>{heading}</span></>
                               )}
                             </h2>
                         </LazyLoad>

@@ -226,7 +226,7 @@ export async function GET(request: Request) {
     })) || []
 
     return new NextResponse(JSON.stringify({ packages: transformedPackages }), { headers: noStoreHeaders })
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

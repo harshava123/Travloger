@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
 export interface Package {
   id: string
@@ -29,7 +29,7 @@ export const usePackages = (options: UsePackagesOptions = {}) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  const fetchPackages = async () => {
+  const fetchPackages = useCallback(async () => {
     try {
       setLoading(true)
       setError(null)
@@ -53,11 +53,11 @@ export const usePackages = (options: UsePackagesOptions = {}) => {
     } finally {
       setLoading(false)
     }
-  }
+  }, [options.tripType, options.featured, options.category])
 
   useEffect(() => {
     fetchPackages()
-  }, [options.tripType, options.featured, options.category])
+  }, [fetchPackages])
 
   return {
     packages,

@@ -371,7 +371,7 @@ export const accessibility = {
 };
 
 // Export all patterns
-export default {
+const mobileFirstPatterns = {
   BREAKPOINTS,
   SPACING,
   TYPOGRAPHY,
@@ -390,4 +390,6 @@ export default {
   mobileFirst,
   responsive,
   accessibility,
-}; 
+};
+
+export default mobileFirstPatterns; 

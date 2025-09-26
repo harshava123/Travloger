@@ -87,7 +87,7 @@ const GokarnaTripHighlights = ({ content }: GokarnaTripHighlightsProps) => {
     
     // Smart merging: combine default items with CMS items
     return defaultGokarnaHighlights.map(defaultItem => {
-      const cmsItem = content.highlights?.find((item: any) => item.id === defaultItem.id);
+      const cmsItem = content.highlights?.find((item: HighlightImage) => item.id === defaultItem.id);
       return cmsItem || defaultItem;
     });
   }, [content?.highlights]);

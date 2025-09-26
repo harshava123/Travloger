@@ -56,7 +56,7 @@ const MysoreFAQ = ({ content }: MysoreFAQProps) => {
     
     // Smart merging: combine default items with CMS items
     return defaultMysoreFaqData.map(defaultItem => {
-      const cmsItem = content.items?.find((item: any) => item.id === defaultItem.id);
+      const cmsItem = content.items?.find((item: FAQType) => item.id === defaultItem.id);
       return cmsItem || defaultItem;
     });
   }, [content?.items]);

@@ -34,11 +34,12 @@ export async function POST() {
     await client.query(CREATE_LEADS_SQL)
     await client.end()
     return NextResponse.json({ executed: true, message: 'leads table created or already exists' })
-  } catch (err: any) {
+  } catch (err: unknown) {
     // If pg is not installed or connection fails, return the SQL for manual execution
+    const errorMessage = err instanceof Error ? err.message : 'Failed to execute SQL'
     return NextResponse.json({
       executed: false,
-      error: err?.message || 'Failed to execute SQL',
+      error: errorMessage,
       sql: CREATE_LEADS_SQL
     }, { status: 500 })
   }

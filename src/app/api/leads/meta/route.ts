@@ -33,7 +33,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
     return NextResponse.json({ ok: true })
-  } catch (e: any) {
+  } catch {
     return NextResponse.json({ error: 'Invalid payload' }, { status: 400 })
   }
 }

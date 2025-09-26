@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import heroBg from '../../../public/hero-bg.png';
 import { motion } from 'framer-motion';
-import { staggerContainer, staggerItem } from '@/lib/animations';
+import { staggerContainer } from '@/lib/animations';
 import { useReducedMotion } from '@/lib/hooks';
 import { mobileFirst, accessibility } from '@/lib/mobile-first-patterns';
 

@@ -73,9 +73,10 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ lead: data }, { status: 201 })
-  } catch (err: any) {
-    console.error('POST /api/leads error:', err?.message || err)
-    return NextResponse.json({ error: err?.message || 'Internal server error' }, { status: 500 })
+  } catch (err: unknown) {
+    const errorMessage = err instanceof Error ? err.message : 'Internal server error'
+    console.error('POST /api/leads error:', errorMessage)
+    return NextResponse.json({ error: errorMessage }, { status: 500 })
   }
 }
 
@@ -106,7 +107,7 @@ export async function GET() {
     }
 
     return NextResponse.json({ leads: data ?? [] }, { status: 200, headers: { 'Cache-Control': 'no-store' } })
-  } catch (err: any) {
+  } catch {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

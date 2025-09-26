@@ -1,13 +1,11 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import useEmblaCarousel from 'embla-carousel-react';
 import ItineraryModal from '../ui/ItineraryModal';
 import { Button } from '../ui/Button';
-import { useIntersectionObserver } from '@/lib/hooks';
 import LazyLoad from '@/components/ui/LazyLoad';
 import { mobileFirst } from '@/lib/mobile-first-patterns';
 import { usePackages, Package } from '@/lib/usePackages';

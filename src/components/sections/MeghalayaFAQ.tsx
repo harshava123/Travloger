@@ -56,7 +56,7 @@ const MeghalayaFAQ = ({ content }: MeghalayaFAQProps) => {
     
     // Smart merging: combine default items with CMS items
     return defaultMeghalayaFaqData.map(defaultItem => {
-      const cmsItem = content.items?.find((item: any) => item.id === defaultItem.id);
+      const cmsItem = content.items?.find((item: FAQType) => item.id === defaultItem.id);
       return cmsItem || defaultItem;
     });
   }, [content?.items]);
