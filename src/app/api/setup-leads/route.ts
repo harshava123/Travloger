@@ -1,0 +1,48 @@
+import { NextResponse } from 'next/server'
+
+const CREATE_LEADS_SQL = `
+create table if not exists leads (
+  id uuid primary key default gen_random_uuid(),
+  source text not null default 'enquiry',
+  name text,
+  phone text,
+  email text,
+  number_of_travelers text,
+  travel_dates text,
+  custom_notes text,
+  raw jsonb,
+  created_at timestamptz default now()
+);`
+
+export const dynamic = 'force-dynamic'
+
+export async function POST() {
+  const dbUrl = process.env.SUPABASE_DB_URL || process.env.DATABASE_URL
+
+  if (!dbUrl) {
+    return NextResponse.json({
+      executed: false,
+      message: 'No SUPABASE_DB_URL/DATABASE_URL found. Returning SQL to run manually.',
+      sql: CREATE_LEADS_SQL
+    })
+  }
+
+  try {
+    const { Client } = await import('pg')
+    const client = new Client({ connectionString: dbUrl })
+    await client.connect()
+    await client.query(CREATE_LEADS_SQL)
+    await client.end()
+    return NextResponse.json({ executed: true, message: 'leads table created or already exists' })
+  } catch (err: any) {
+    // If pg is not installed or connection fails, return the SQL for manual execution
+    return NextResponse.json({
+      executed: false,
+      error: err?.message || 'Failed to execute SQL',
+      sql: CREATE_LEADS_SQL
+    }, { status: 500 })
+  }
+}
+
+
+
