@@ -28,7 +28,8 @@ export async function POST() {
   }
 
   try {
-    const { Client } = await import('pg')
+    const pg = await import('pg')
+    const { Client } = pg
     const client = new Client({ connectionString: dbUrl })
     await client.connect()
     await client.query(CREATE_LEADS_SQL)
