@@ -112,35 +112,31 @@ const CompanyLogos = React.memo(({ content }: { content?: BrandsContent }) => {
                                 animate={{ translateX: prefersReducedMotion ? 0 : '-50%' }}
                                 className="flex flex-none gap-10 md:gap-12 lg:gap-16 pr-10 md:pr-12 lg:pr-16"
                             >
-                                {[...new Array(2)].fill(0).map((_, index) => (
-                                    <React.Fragment key={index}>
-                                        {displayBrands
-                                            .filter((company) => {
-                                                // Filter out companies with empty logoUrl
-                                                const logoSource = 'logoUrl' in company ? company.logoUrl : company.logo;
-                                                return logoSource && logoSource.trim() !== '';
-                                            })
-                                            .map((company) => (
-                                            <motion.div 
-                                                key={`${company.name}-${index}`} 
-                                                className="flex-shrink-0 flex items-center justify-center group"
-                                                whileHover={{ 
-                                                    scale: 1.05,
-                                                    transition: { duration: 0.3 }
-                                                }}
-                                            >
-                                                <div className="w-24 h-12 md:w-28 md:h-14 lg:w-32 lg:h-16 flex items-center justify-center">
-                                                    <Image 
-                                                        src={'logoUrl' in company ? company.logoUrl : company.logo} 
-                                                        alt={`${company.name} logo`} 
-                                                        width={company.width || 120} 
-                                                        height={company.height || 60} 
-                                                        className="object-contain opacity-70 group-hover:opacity-100 transition-all duration-300 max-w-full max-h-full" 
-                                                    />
-                                                </div>
-                                            </motion.div>
-                                        ))}
-                                    </React.Fragment>
+                                {displayBrands
+                                    .filter((company) => {
+                                        // Filter out companies with empty logoUrl
+                                        const logoSource = 'logoUrl' in company ? company.logoUrl : company.logo;
+                                        return logoSource && logoSource.trim() !== '';
+                                    })
+                                    .map((company) => (
+                                    <motion.div 
+                                        key={company.name} 
+                                        className="flex-shrink-0 flex items-center justify-center group"
+                                        whileHover={{ 
+                                            scale: 1.05,
+                                            transition: { duration: 0.3 }
+                                        }}
+                                    >
+                                        <div className="w-24 h-12 md:w-28 md:h-14 lg:w-32 lg:h-16 flex items-center justify-center">
+                                            <Image 
+                                                src={'logoUrl' in company ? company.logoUrl : company.logo} 
+                                                alt={`${company.name} logo`} 
+                                                width={company.width || 120} 
+                                                height={company.height || 60} 
+                                                className="object-contain opacity-70 group-hover:opacity-100 transition-all duration-300 max-w-full max-h-full" 
+                                            />
+                                        </div>
+                                    </motion.div>
                                 ))}
                             </motion.div>
                         </motion.div>
