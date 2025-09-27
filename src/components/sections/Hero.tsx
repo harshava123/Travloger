@@ -297,4 +297,4 @@ const Hero = React.memo(({ content }: HeroProps) => {
 
 Hero.displayName = 'Hero';
 
-export default Hero;"console.log('Hero content:', content);" 
+export default Hero; 
