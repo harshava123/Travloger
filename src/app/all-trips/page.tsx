@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { cn } from '@/lib/utils';
+import { cn } from '../../lib/utils';
 import ItineraryModal from '@/components/ui/ItineraryModal';
 import { Button } from '@/components/ui/Button';
 import { mobileFirst } from '@/lib/mobile-first-patterns';
