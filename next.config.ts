@@ -10,6 +10,7 @@ const nextConfig = {
       'images.unsplash.com',
       'cdn.pixabay.com',
       's7ap1.scene7.com',
+      'tltuoosynajzlbvofzed.supabase.co',
     ],
     // Explicit remote patterns (with wildcard path)
     remotePatterns: [
@@ -31,6 +32,11 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 's7ap1.scene7.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'tltuoosynajzlbvofzed.supabase.co',
         pathname: '/**',
       },
     ],
