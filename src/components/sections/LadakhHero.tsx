@@ -12,6 +12,7 @@ interface HeroContent {
   title?: string;
   subtitle?: string;
   backgroundImageUrl?: string;
+  mobileVideoUrl?: string;
   ctaText?: string;
   ctaSecondaryText?: string;
 }
@@ -22,6 +23,11 @@ interface LadakhHeroProps {
 
 const LadakhHero = React.memo(({ content }: LadakhHeroProps) => {
   const prefersReducedMotion = useReducedMotion();
+  
+  // Debug: Log the content to see what's being passed
+  console.log('LadakhHero content:', content);
+  console.log('LadakhHero mobileVideoUrl:', content?.mobileVideoUrl);
+  console.log('LadakhHero will show video?', !!content?.mobileVideoUrl);
 
   // WhatsApp contact function
   const handleWhatsAppClick = () => {
@@ -91,29 +97,42 @@ const LadakhHero = React.memo(({ content }: LadakhHeroProps) => {
 
       {/* Background Video for Small Screens */}
       <div className="absolute inset-0 z-0 md:hidden">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-cover"
-          style={{ objectPosition: '30% center' }}
-        >
-          <source src="/hero-video.mp4" type="video/mp4" />
-          <source src="/hero-video.webm" type="video/webm" />
-          {/* Fallback to image if video fails to load */}
+        {content?.mobileVideoUrl ? (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover"
+            style={{ objectPosition: '30% center' }}
+          >
+            <source src={content.mobileVideoUrl} type="video/mp4" />
+            {/* Fallback to image if video fails to load */}
+            <Image
+              src={content?.backgroundImageUrl || heroBg}
+              alt="Ladakh landscape with snow-capped mountains and monasteries"
+              fill
+              className="object-cover"
+              style={{ objectPosition: '30% center' }}
+              priority
+              sizes="100vw"
+              {...(!content?.backgroundImageUrl && { placeholder: "blur" })}
+              quality={85}
+            />
+          </video>
+        ) : (
           <Image
-            src={heroBg}
+            src={content?.backgroundImageUrl || heroBg}
             alt="Ladakh landscape with snow-capped mountains and monasteries"
             fill
             className="object-cover"
             style={{ objectPosition: '30% center' }}
             priority
             sizes="100vw"
-            placeholder="blur"
+            {...(!content?.backgroundImageUrl && { placeholder: "blur" })}
             quality={85}
           />
-        </video>
+        )}
       </div>
 
       {/* Background Image for Large Screens */}

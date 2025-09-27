@@ -11,6 +11,7 @@ type HeroContent = {
   title?: string
   subtitle?: string
   backgroundImageUrl?: string
+  mobileVideoUrl?: string
   whatsappPhone?: string
   whatsappMessage?: string
 }
@@ -86,17 +87,29 @@ const KeralaHero = React.memo(({ content }: { content?: HeroContent }) => {
 
       {/* Background Video for Small Screens */}
       <div className="absolute inset-0 z-0 md:hidden">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-cover"
-          style={{ objectPosition: '30% center' }}
-        >
-          <source src="/hero-video.mp4" type="video/mp4" />
-          <source src="/hero-video.webm" type="video/webm" />
-          {/* Fallback to image if video fails to load */}
+        {content?.mobileVideoUrl ? (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover"
+            style={{ objectPosition: '30% center' }}
+          >
+            <source src={content.mobileVideoUrl} type="video/mp4" />
+            {/* Fallback to image if video fails to load */}
+            <Image
+              src={content?.backgroundImageUrl || '/hero-bg.png'}
+              alt={content?.title || 'Kerala landscape with backwaters and coconut trees'}
+              fill
+              className="object-cover"
+              style={{ objectPosition: '30% center' }}
+              priority
+              sizes="100vw"
+              quality={85}
+            />
+          </video>
+        ) : (
           <Image
             src={content?.backgroundImageUrl || '/hero-bg.png'}
             alt={content?.title || 'Kerala landscape with backwaters and coconut trees'}
@@ -107,7 +120,7 @@ const KeralaHero = React.memo(({ content }: { content?: HeroContent }) => {
             sizes="100vw"
             quality={85}
           />
-        </video>
+        )}
       </div>
 
       {/* Background Image for Large Screens */}

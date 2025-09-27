@@ -12,6 +12,7 @@ interface HeroContent {
   title?: string;
   subtitle?: string;
   backgroundImageUrl?: string;
+  mobileVideoUrl?: string;
   ctaText?: string;
   ctaSecondaryText?: string;
 }
@@ -91,17 +92,30 @@ const MysoreHero = React.memo(({ content }: MysoreHeroProps) => {
 
       {/* Background Video for Small Screens */}
       <div className="absolute inset-0 z-0 md:hidden">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-cover"
-          style={{ objectPosition: '30% center' }}
-        >
-          <source src="/hero-video.mp4" type="video/mp4" />
-          <source src="/hero-video.webm" type="video/webm" />
-          {/* Fallback to image if video fails to load */}
+        {content?.mobileVideoUrl ? (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover"
+            style={{ objectPosition: '30% center' }}
+          >
+            <source src={content.mobileVideoUrl} type="video/mp4" />
+            {/* Fallback to image if video fails to load */}
+            <Image
+              src={content?.backgroundImageUrl || heroBg}
+              alt="Mysore landscape with palaces and heritage sites"
+              fill
+              className="object-cover"
+              style={{ objectPosition: '30% center' }}
+              priority
+              sizes="100vw"
+              {...(!content?.backgroundImageUrl && { placeholder: "blur" })}
+              quality={85}
+            />
+          </video>
+        ) : (
           <Image
             src={content?.backgroundImageUrl || heroBg}
             alt="Mysore landscape with palaces and heritage sites"
@@ -113,7 +127,7 @@ const MysoreHero = React.memo(({ content }: MysoreHeroProps) => {
             {...(!content?.backgroundImageUrl && { placeholder: "blur" })}
             quality={85}
           />
-        </video>
+        )}
       </div>
 
       {/* Background Image for Large Screens */}
