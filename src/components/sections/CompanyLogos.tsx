@@ -114,7 +114,13 @@ const CompanyLogos = React.memo(({ content }: { content?: BrandsContent }) => {
                             >
                                 {[...new Array(2)].fill(0).map((_, index) => (
                                     <React.Fragment key={index}>
-                                        {displayBrands.map((company) => (
+                                        {displayBrands
+                                            .filter((company) => {
+                                                // Filter out companies with empty logoUrl
+                                                const logoSource = 'logoUrl' in company ? company.logoUrl : company.logo;
+                                                return logoSource && logoSource.trim() !== '';
+                                            })
+                                            .map((company) => (
                                             <motion.div 
                                                 key={`${company.name}-${index}`} 
                                                 className="flex-shrink-0 flex items-center justify-center group"
