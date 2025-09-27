@@ -116,7 +116,7 @@ const CompanyLogos = React.memo(({ content }: { content?: BrandsContent }) => {
                                     .filter((company) => {
                                         // Filter out companies with empty logoUrl
                                         const logoSource = 'logoUrl' in company ? company.logoUrl : company.logo;
-                                        return logoSource && logoSource.trim() !== '';
+                                        return logoSource && typeof logoSource === 'string' && logoSource.trim() !== '';
                                     })
                                     .map((company) => (
                                     <motion.div 

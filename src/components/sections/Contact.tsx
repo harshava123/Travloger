@@ -201,16 +201,16 @@ const Contact: React.FC = React.memo(() => {
   const validateForm = useCallback((): boolean => {
     const errors: Partial<ContactForm> = {};
     
-    if (!formData.name.trim()) errors.name = 'Name is required';
+    if (!formData.name || typeof formData.name !== 'string' || !formData.name.trim()) errors.name = 'Name is required';
     else if (formData.name.length < 2) errors.name = 'Name must be at least 2 characters';
     
-    if (!formData.email.trim()) errors.email = 'Email is required';
+    if (!formData.email || typeof formData.email !== 'string' || !formData.email.trim()) errors.email = 'Email is required';
     else if (!validateEmail(formData.email)) errors.email = 'Please enter a valid email address';
     
-    if (!formData.phone.trim()) errors.phone = 'Phone is required';
+    if (!formData.phone || typeof formData.phone !== 'string' || !formData.phone.trim()) errors.phone = 'Phone is required';
     else if (!validatePhone(formData.phone)) errors.phone = 'Please enter a valid phone number';
     
-    if (!formData.message.trim()) errors.message = 'Message is required';
+    if (!formData.message || typeof formData.message !== 'string' || !formData.message.trim()) errors.message = 'Message is required';
     else if (formData.message.length < 10) errors.message = 'Message must be at least 10 characters';
     
     setValidationErrors(errors);
